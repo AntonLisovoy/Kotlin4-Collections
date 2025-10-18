@@ -53,13 +53,29 @@ class NaturalList(n: Int) : List<Int> {
      * Функция должна возвращать true, если сравнивается с другой реализацией списка тех же чисел
      * Например, NaturalList(5) должен быть равен listOf(1,2,3,4,5)
      */
-    override fun equals(other: Any?): Boolean = false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is List<*>) return false
+        if (size != other.size) return false
+
+        for (i in 0 until size) {
+            if (get(i) != other[i]) return false
+        }
+
+        return true
+    }
 
     /**
      * Функция должна возвращать "хороший" hash-code. Вы можете использовть любой удобный алгоритм
      * хэш-функции, или подсмотреть реализацию в одном из библиотечных списков.
      */
-    override fun hashCode(): Int = -1
+    override fun hashCode(): Int {
+        var result = 1
+        for (element in this) {
+            result = 31 * result + element
+        }
+        return result
+    }
 }
 
 private class NaturalIterator(private val n: Int) : Iterator<Int> {
